@@ -19,7 +19,7 @@ if r.Method != "GET" {
 fmt.Fprintf(w, "hello!")
 }
 
-func formHandler(w, http.ResponseWriter, r *http.Request){
+func formHandler(w http.ResponseWriter, r *http.Request){
 if err := r.ParseForm(); err != nil {
 	return
 }
@@ -32,7 +32,7 @@ fmt.Fprintf(w, "Address = %s\n", address)
 
 
 func main(){
-fileServer := htt.FileServer(http.Dir("./static")) //check the static directory
+fileServer := http.FileServer(http.Dir("./static")) //check the static directory
 http.Handle("/", fileServer) //handle root route
 http.HandleFunc("/form", formHandler)
 http.HandleFunc("/hello", helloHandler)
